@@ -33,10 +33,10 @@ int facedetect(FRAME *pOrgImg, RECT* facesInfo)
     {
         short * p = ((short*)(pResults+1))+142*i;
 
-        facesInfo[i].x = p[0];
-        facesInfo[i].y = p[1];
-        facesInfo[i].width = p[2];
-        facesInfo[i].height = p[3];
+        facesInfo[i].x = MAX(0,p[0]);
+        facesInfo[i].y = MAX(0,p[1]);
+        facesInfo[i].width = MAX(0,p[2]);
+        facesInfo[i].height = MAX(0,p[3]);
         facesInfo[i].score = p[4];  
     }
     if(pBuffer)

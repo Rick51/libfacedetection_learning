@@ -111,6 +111,12 @@ int main(int argc, char *argv[])
         goto output2;
     }
 
+#if defined DEBUG
+    printf("after scaleing, image's width is %d, height is %d\n",scaleImg.width, scaleImg.height);
+    write_bin((void*)scaleImg.pAddr[0], sizeof(RGB_IMAGE), scaleImg.width, scaleImg.height, DEMO_ABGR_BIN_WRITE);    
+#endif
+
+
     faceNum = faceDetectProcess(&scaleImg, facesInfo);    
     if(0 == faceNum)
     {
@@ -128,7 +134,15 @@ int main(int argc, char *argv[])
         facesInfo[i].y = ((facesInfo[i].y * padImg.height) / float(DEMO_ABGR_BIN_READ_Y)) - top_padding;
         facesInfo[i].width = (facesInfo[i].width * padImg.width) / float(DEMO_ABGR_BIN_READ_X);
         facesInfo[i].height = (facesInfo[i].height * padImg.height) / float(DEMO_ABGR_BIN_READ_Y);
-        printf("face[%d]: x1: %d, y1: %d, x2: %d, y2: %d\n",i, facesInfo[i].x, facesInfo[i].y, facesInfo[i].x + facesInfo[i].width ,facesInfo[i].y + facesInfo[i].height);
+        if ((facesInfo[i].x + facesInfo[i].width >= DEMO_ABGR_BIN_READ_ORIG_X) || (facesInfo[i].y + facesInfo[i].height >= DEMO_ABGR_BIN_READ_ORIG_Y))
+        {
+            printf("face[%d] is illegal.\n",i);
+        }
+        else
+        {
+            printf("face[%d]: x1: %d, y1: %d, x2: %d, y2: %d\n",i, facesInfo[i].x, facesInfo[i].y, facesInfo[i].x + facesInfo[i].width ,facesInfo[i].y + facesInfo[i].height);           
+        }
+        
     }           
 #endif
 

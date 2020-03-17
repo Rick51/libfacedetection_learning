@@ -17,6 +17,7 @@
 ![image](https://github.com/Rick51/libfacedetection_learning/blob/master/images/scaleing.png)
 
 #### output:
+![image](https://github.com/Rick51/libfacedetection_learning/blob/master/images/final.jpg)
 
 face[0]: x1: 225, y1: 43, x2: 304, y2: 122
 
